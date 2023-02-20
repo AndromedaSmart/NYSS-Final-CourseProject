@@ -1,0 +1,64 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Курсовой проект NYSS | Сорокин Андрей";
+}
+
+<div class="text-center">
+    <form method="post" class="col-lg" enctype="multipart/form-data">
+        <div class="row mb-2">
+            @Html.TextArea("Input", Model.Input, new
+            {
+            @rows = 10,
+            @id = "inp",
+            @class = "form-control rounded col-lg",
+            @style = "width: inherit; resize: none;",
+            })
+        </div>
+
+        <div class="row">
+            <div class="input-groupcol">
+                <div class="form-group mb-2 сol">
+                    <input asp-for="InputFile" type="file" class="form-control-file" id="exampleFormControlFile" />
+                    <label for="exampleFormControlFile" class="font-italic" style="font-size:12px;">Поддерживаемые форматы: .txt, .docx</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-group col">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" style="height: 38px;">Ключ</div>
+                    </div>
+                    <input class="form-control" type="text" name="keyword" value="@Model.Keyword" />
+                </div>
+            <div class="col">
+                <select data-val="true" class="form-control" id="SelectedFunc" asp-for="SelectedFunc" name="SelectedFunc">
+                    <option value="dec">Расшифровать</option>
+                    <option value="enc" selected>Зашифровать</option>
+                </select>
+            </div>
+            <div class="col">
+                <select data-val="true" class="form-control" id="SelectedAlph" asp-for="SelectedAlph" name="SelectedAlph">
+                    <option value="rus" selected>Русский</option>
+                    <option value="eng">Английский</option>
+                </select>
+            </div>
+        </div>
+        <input type="submit" value="Рассчитать" class="btn btn-outline-dark col mt-2" />
+        <p class="row mt-4 font-italic" style="font-size: 14px;">Преобразованный текст:</p>
+        <div class="row">
+            <div id="out" class="text-justify" style="font-size: 18px;">@Model.Output</div>
+        </div>
+        <div class="col">
+                @if (!string.IsNullOrEmpty(Model.Output))
+                {
+                    <a href="/UploadedFiles/output.txt" class="mr-4" download="output.txt">
+                        Скачать .txt
+                    </a>
+                    <a href="/UploadedFiles/output.docx" class="ml-4" download="output.docx">
+                        Скачать .docx
+                    </a>
+                }
+            </div>
+    </form>
+</div>
